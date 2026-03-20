@@ -1,0 +1,280 @@
+{
+  "subject": "science",
+  "version": "1.0",
+  "total_items": 18,
+  "time_minutes": 15,
+  "domains": {
+    "diversity_matter": {
+      "label": "Diversity of Matter",
+      "ghana_strand": "DIVERSITY OF MATTER",
+      "sub_strands": ["Materials", "Living Cells"],
+      "items_count": 3
+    },
+    "cycles": {
+      "label": "Cycles",
+      "ghana_strand": "CYCLES",
+      "sub_strands": ["Earth Science", "Life Cycle of Organisms", "Crop Production", "Animal Production"],
+      "items_count": 4
+    },
+    "systems": {
+      "label": "Systems",
+      "ghana_strand": "SYSTEMS",
+      "sub_strands": ["The Human Body System", "The Solar System", "Ecosystem", "Farming Systems"],
+      "items_count": 4
+    },
+    "forces_energy": {
+      "label": "Forces and Energy",
+      "ghana_strand": "FORCES AND ENERGY",
+      "sub_strands": ["Energy", "Electricity and Electronics", "Conversion and Conservation of Energy"],
+      "items_count": 4
+    },
+    "humans_environment": {
+      "label": "Humans and the Environment",
+      "ghana_strand": "HUMANS AND THE ENVIRONMENT",
+      "sub_strands": ["Force and Motion", "Waste Management", "Human Health", "Climate Change and Green Economy"],
+      "items_count": 3
+    }
+  },
+  "items": [
+    {
+      "id": "S-DM-01",
+      "domain": "diversity_matter",
+      "sub_strand": "Materials",
+      "difficulty": 1,
+      "stem": "Which of the following is a property of metals?",
+      "options": ["They are soft", "They conduct electricity", "They float in water", "They are transparent"],
+      "answer_index": 1,
+      "image_path": null
+    },
+    {
+      "id": "S-DM-02",
+      "domain": "diversity_matter",
+      "sub_strand": "Living Cells",
+      "difficulty": 1,
+      "stem": "What is the basic unit of all living things?",
+      "options": ["Atom", "Molecule", "Cell", "Tissue"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "S-DM-03",
+      "domain": "diversity_matter",
+      "sub_strand": "Living Cells",
+      "difficulty": 2,
+      "stem": "Which part of the plant cell is NOT found in an animal cell?",
+      "options": ["Nucleus", "Cell membrane", "Mitochondria", "Cell wall"],
+      "answer_index": 3,
+      "image_path": null
+    },
+    {
+      "id": "S-CYC-01",
+      "domain": "cycles",
+      "sub_strand": "Earth Science",
+      "difficulty": 1,
+      "stem": "Water evaporates from the ocean and forms clouds. What happens next in the water cycle?",
+      "options": ["Water sinks underground", "Rain falls back to Earth", "Water turns into ice", "Clouds move to space"],
+      "answer_index": 1,
+      "image_path": null
+    },
+    {
+      "id": "S-CYC-02",
+      "domain": "cycles",
+      "sub_strand": "Life Cycle of Organisms",
+      "difficulty": 1,
+      "stem": "Which sequence correctly shows the life cycle of a butterfly?",
+      "options": [
+        "Egg → Larva → Pupa → Adult",
+        "Egg → Pupa → Larva → Adult",
+        "Larva → Egg → Pupa → Adult",
+        "Adult → Pupa → Larva → Egg"
+      ],
+      "answer_index": 0,
+      "image_path": null
+    },
+    {
+      "id": "S-CYC-03",
+      "domain": "cycles",
+      "sub_strand": "Crop Production",
+      "difficulty": 2,
+      "stem": "A farmer notices his maize plants are growing poorly and have yellow leaves. What is the most likely cause?",
+      "options": [
+        "Too much sunlight",
+        "The soil lacks nutrients",
+        "The plants have too much water",
+        "The seeds were planted too deep"
+      ],
+      "answer_index": 1,
+      "image_path": null
+    },
+    {
+      "id": "S-CYC-04",
+      "domain": "cycles",
+      "sub_strand": "Animal Production",
+      "difficulty": 2,
+      "stem": "A goat farmer wants to improve the health of his animals. Which practice is most important?",
+      "options": [
+        "Keeping animals in a small space",
+        "Feeding animals once a week",
+        "Giving animals clean water and vaccinations",
+        "Letting animals find their own food"
+      ],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "S-SYS-01",
+      "domain": "systems",
+      "sub_strand": "The Human Body System",
+      "difficulty": 1,
+      "stem": "Which organ pumps blood around the human body?",
+      "options": ["Lungs", "Liver", "Heart", "Kidney"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "S-SYS-02",
+      "domain": "systems",
+      "sub_strand": "The Solar System",
+      "difficulty": 1,
+      "stem": "What causes day and night on Earth?",
+      "options": [
+        "The Moon moves around the Earth",
+        "The Earth moves around the Sun",
+        "The Earth spins on its own axis",
+        "The Sun moves across the sky"
+      ],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "S-SYS-03",
+      "domain": "systems",
+      "sub_strand": "Ecosystem",
+      "difficulty": 2,
+      "stem": "In a food chain: Grass → Grasshopper → Frog → Snake. If all frogs disappeared, what would most likely happen?",
+      "options": [
+        "Grasshoppers would decrease and snakes would increase",
+        "Grasshoppers would increase and snakes would decrease",
+        "Grass would decrease and snakes would increase",
+        "Nothing would change"
+      ],
+      "answer_index": 1,
+      "image_path": null
+    },
+    {
+      "id": "S-SYS-04",
+      "domain": "systems",
+      "sub_strand": "Farming Systems",
+      "difficulty": 3,
+      "stem": "A student observes that crops grow better next to a river than on a hilltop. She wants to find out why. Which is the best way to test her idea?",
+      "options": [
+        "Ask a farmer for their opinion",
+        "Grow the same crop in both locations and measure the growth",
+        "Read about farming in a book",
+        "Grow different crops in each location"
+      ],
+      "answer_index": 1,
+      "image_path": null
+    },
+    {
+      "id": "S-FE-01",
+      "domain": "forces_energy",
+      "sub_strand": "Energy",
+      "difficulty": 1,
+      "stem": "Which of the following is a source of renewable energy?",
+      "options": ["Coal", "Petrol", "Solar power", "Natural gas"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "S-FE-02",
+      "domain": "forces_energy",
+      "sub_strand": "Electricity and Electronics",
+      "difficulty": 2,
+      "stem": "A light bulb does not light up when connected to a battery. What is the most likely reason?",
+      "options": [
+        "The battery is too large",
+        "The circuit is not complete",
+        "The bulb has too much energy",
+        "The wire is too long"
+      ],
+      "answer_index": 1,
+      "image_path": null
+    },
+    {
+      "id": "S-FE-03",
+      "domain": "forces_energy",
+      "sub_strand": "Conversion and Conservation of Energy",
+      "difficulty": 2,
+      "stem": "When a mobile phone is charging, what energy conversion is taking place?",
+      "options": [
+        "Chemical energy → Light energy",
+        "Electrical energy → Chemical energy",
+        "Light energy → Electrical energy",
+        "Sound energy → Chemical energy"
+      ],
+      "answer_index": 1,
+      "image_path": null
+    },
+    {
+      "id": "S-FE-04",
+      "domain": "forces_energy",
+      "sub_strand": "Conversion and Conservation of Energy",
+      "difficulty": 3,
+      "stem": "A student measures the temperature of water heated by a fire and records data every minute. She notices the temperature increases slowly at first, then faster. What is the best explanation?",
+      "options": [
+        "The fire is getting colder",
+        "Water absorbs heat faster as it gets warmer",
+        "The energy from the fire is being transferred to the water",
+        "Temperature cannot be measured accurately"
+      ],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "S-HE-01",
+      "domain": "humans_environment",
+      "sub_strand": "Waste Management",
+      "difficulty": 1,
+      "stem": "What is the best way to deal with plastic waste in a community?",
+      "options": [
+        "Burn it in the street",
+        "Throw it in the river",
+        "Reduce, reuse, and recycle",
+        "Bury it in the school compound"
+      ],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "S-HE-02",
+      "domain": "humans_environment",
+      "sub_strand": "Human Health",
+      "difficulty": 2,
+      "stem": "Malaria is common in many parts of Ghana. Two students argue about how to prevent it. Ama says: 'Sleep under a mosquito net.' Kofi says: 'Drain stagnant water near homes.' Who is correct?",
+      "options": [
+        "Only Ama is correct",
+        "Only Kofi is correct",
+        "Both are correct — they address different parts of the problem",
+        "Neither is correct"
+      ],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "S-HE-03",
+      "domain": "humans_environment",
+      "sub_strand": "Climate Change and Green Economy",
+      "difficulty": 3,
+      "stem": "A community cuts down trees to plant more crops. Over the next few years, the area receives less rainfall. A scientist says the deforestation caused this. What evidence would best support the scientist's claim?",
+      "options": [
+        "Pictures of the cut trees",
+        "A record showing rainfall decreased after deforestation started",
+        "The opinion of community elders",
+        "The number of crops grown each year"
+      ],
+      "answer_index": 1,
+      "image_path": null
+    }
+  ]
+}

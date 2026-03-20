@@ -1,0 +1,234 @@
+{
+  "subject": "math",
+  "version": "1.0",
+  "total_items": 20,
+  "time_minutes": 13,
+  "domains": {
+    "number": {
+      "label": "Number",
+      "ghana_strand": "NUMBER",
+      "sub_strands": ["Number and Numeration Systems", "Number Operations", "Fractions, Decimals and Percentages", "Ratios and Proportion"],
+      "items_count": 6
+    },
+    "algebra": {
+      "label": "Algebra",
+      "ghana_strand": "ALGEBRA",
+      "sub_strands": ["Patterns and Relations", "Algebraic Expressions", "Variables and Equations"],
+      "items_count": 5
+    },
+    "geometry_measurement": {
+      "label": "Geometry & Measurement",
+      "ghana_strand": "GEOMETRY AND MEASUREMENT",
+      "sub_strands": ["Shape and Space", "Measurement", "Position and Transformation"],
+      "items_count": 5
+    },
+    "handling_data": {
+      "label": "Handling Data",
+      "ghana_strand": "HANDLING DATA",
+      "sub_strands": ["Data", "Chance or Probability"],
+      "items_count": 4
+    }
+  },
+  "items": [
+    {
+      "id": "M-NUM-01",
+      "domain": "number",
+      "sub_strand": "Number and Numeration Systems",
+      "difficulty": 1,
+      "stem": "What is the value of the digit 4 in the number 3,412?",
+      "options": ["4", "40", "400", "4,000"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "M-NUM-02",
+      "domain": "number",
+      "sub_strand": "Number Operations",
+      "difficulty": 1,
+      "stem": "Calculate: 356 + 247 = ?",
+      "options": ["503", "593", "603", "613"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "M-NUM-03",
+      "domain": "number",
+      "sub_strand": "Number Operations",
+      "difficulty": 2,
+      "stem": "A farmer harvested 1,250 yams. He sold 480 of them. How many yams are left?",
+      "options": ["670", "730", "770", "870"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "M-NUM-04",
+      "domain": "number",
+      "sub_strand": "Fractions, Decimals and Percentages",
+      "difficulty": 2,
+      "stem": "Which fraction is equivalent to 0.75?",
+      "options": ["1/4", "2/3", "3/4", "4/5"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "M-NUM-05",
+      "domain": "number",
+      "sub_strand": "Fractions, Decimals and Percentages",
+      "difficulty": 3,
+      "stem": "A school has 200 students. 30% of them are in JHS1. How many students are in JHS1?",
+      "options": ["30", "50", "60", "70"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "M-NUM-06",
+      "domain": "number",
+      "sub_strand": "Ratios and Proportion",
+      "difficulty": 3,
+      "stem": "To make orange drink, Kofi mixes 2 cups of juice with 5 cups of water. How many cups of water does he need for 6 cups of juice?",
+      "options": ["10", "12", "15", "18"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "M-ALG-01",
+      "domain": "algebra",
+      "sub_strand": "Patterns and Relations",
+      "difficulty": 1,
+      "stem": "What is the next number in the pattern: 3, 6, 9, 12, ___?",
+      "options": ["13", "14", "15", "16"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "M-ALG-02",
+      "domain": "algebra",
+      "sub_strand": "Patterns and Relations",
+      "difficulty": 2,
+      "stem": "What is the missing number: 4, 8, ___, 16, 20?",
+      "options": ["10", "11", "12", "14"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "M-ALG-03",
+      "domain": "algebra",
+      "sub_strand": "Algebraic Expressions",
+      "difficulty": 2,
+      "stem": "If n = 5, what is the value of 3n + 2?",
+      "options": ["10", "15", "17", "20"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "M-ALG-04",
+      "domain": "algebra",
+      "sub_strand": "Variables and Equations",
+      "difficulty": 3,
+      "stem": "Solve for x: x + 8 = 15",
+      "options": ["5", "6", "7", "8"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "M-ALG-05",
+      "domain": "algebra",
+      "sub_strand": "Variables and Equations",
+      "difficulty": 3,
+      "stem": "If 2y - 4 = 10, what is y?",
+      "options": ["3", "5", "7", "9"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "M-GEO-01",
+      "domain": "geometry_measurement",
+      "sub_strand": "Shape and Space",
+      "difficulty": 1,
+      "stem": "How many sides does a rectangle have?",
+      "options": ["3", "4", "5", "6"],
+      "answer_index": 1,
+      "image_path": null
+    },
+    {
+      "id": "M-GEO-02",
+      "domain": "geometry_measurement",
+      "sub_strand": "Measurement",
+      "difficulty": 1,
+      "stem": "A room is 5 metres long and 4 metres wide. What is its area?",
+      "options": ["9 m²", "18 m²", "20 m²", "25 m²"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "M-GEO-03",
+      "domain": "geometry_measurement",
+      "sub_strand": "Measurement",
+      "difficulty": 2,
+      "stem": "A fence runs around a square garden with sides of 6 metres. What is the total length of the fence?",
+      "options": ["12 m", "18 m", "24 m", "36 m"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "M-GEO-04",
+      "domain": "geometry_measurement",
+      "sub_strand": "Shape and Space",
+      "difficulty": 2,
+      "stem": "Which shape has exactly one pair of parallel sides?",
+      "options": ["Square", "Rectangle", "Trapezium", "Rhombus"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "M-GEO-05",
+      "domain": "geometry_measurement",
+      "sub_strand": "Position and Transformation",
+      "difficulty": 3,
+      "stem": "A shape is reflected across a vertical line. Which property stays the same?",
+      "options": ["Position", "Orientation", "Size and shape", "Colour"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "M-DAT-01",
+      "domain": "handling_data",
+      "sub_strand": "Data",
+      "difficulty": 1,
+      "stem": "Five students scored: 10, 8, 6, 9, 7. What is their average score?",
+      "options": ["7", "8", "9", "10"],
+      "answer_index": 1,
+      "image_path": null
+    },
+    {
+      "id": "M-DAT-02",
+      "domain": "handling_data",
+      "sub_strand": "Data",
+      "difficulty": 2,
+      "stem": "A bar chart shows mango sales: Monday 20, Tuesday 35, Wednesday 15. On which day were the most mangoes sold?",
+      "options": ["Monday", "Tuesday", "Wednesday", "All the same"],
+      "answer_index": 1,
+      "image_path": null
+    },
+    {
+      "id": "M-DAT-03",
+      "domain": "handling_data",
+      "sub_strand": "Chance or Probability",
+      "difficulty": 2,
+      "stem": "A bag has 3 red balls and 1 blue ball. If you pick one without looking, how likely is it to be red?",
+      "options": ["1 out of 4", "1 out of 3", "3 out of 4", "3 out of 1"],
+      "answer_index": 2,
+      "image_path": null
+    },
+    {
+      "id": "M-DAT-04",
+      "domain": "handling_data",
+      "sub_strand": "Chance or Probability",
+      "difficulty": 3,
+      "stem": "If you flip a fair coin, what is the probability of getting tails?",
+      "options": ["0", "1/4", "1/2", "1"],
+      "answer_index": 2,
+      "image_path": null
+    }
+  ]
+}
