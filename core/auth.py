@@ -4,10 +4,10 @@ import os
 
 def get_user(headers: dict) -> dict:
     return {
-        "user_id": headers.get("X-User-Id"),
-        "email": headers.get("X-User-Email"),
-        "name": headers.get("X-User-Name"),
-        "roles": headers.get("X-User-Roles", ""),
+        "user_id": headers.get("X-User-Id") or "anonymous",
+        "email": headers.get("X-User-Email") or "",
+        "name": headers.get("X-User-Name") or "",
+        "roles": headers.get("X-User-Roles") or "",
     }
 
 
