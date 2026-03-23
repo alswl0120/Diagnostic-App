@@ -5,6 +5,7 @@ from assessment.loader import get_ordered_items, get_questions_by_domain
 from assessment.session import init_responses, record_response, get_domain_and_local_index
 from components.character import character_think
 from components.tts import tts_button
+from core.database import save_progress_checkpoint, get_connection
 
 SUBJECT = "math"
 TOTAL_ITEMS = 20
@@ -15,6 +16,12 @@ DOMAIN_LABELS = {
     "algebra": "Algebra",
     "geometry_measurement": "Geometry & Measurement",
     "handling_data": "Handling Data",
+}
+DOMAIN_EMOJI = {
+    "number": "🔢",
+    "algebra": "🔣",
+    "geometry_measurement": "📐",
+    "handling_data": "📊",
 }
 DOMAIN_ORDER = ["number", "algebra", "geometry_measurement", "handling_data"]
 DOMAIN_SIZES = {"number": 6, "algebra": 5, "geometry_measurement": 5, "handling_data": 4}
@@ -175,7 +182,8 @@ def render():
     _stepper(ordered, idx)
 
     stem = item['stem']
-    st.markdown(f'<div class="q-card"><div class="q-number">Question {idx + 1} of {TOTAL_ITEMS}</div><div class="q-stem">{stem}</div></div>', unsafe_allow_html=True)
+    domain_emoji = DOMAIN_EMOJI.get(domain, "📚")
+    st.markdown(f'<div class="q-card"><div class="q-number">Question {idx + 1} of {TOTAL_ITEMS} &nbsp; <span style="font-size:1.4rem;">{domain_emoji}</span></div><div class="q-stem">{stem}</div></div>', unsafe_allow_html=True)
     tts_button(stem, color="#6366F1", bg="#EEF2FF", border="#C7D2FE")
 
     col_ans, col_char = st.columns([3, 1])
@@ -202,8 +210,19 @@ def render():
             use_container_width=True,
         ):
             record_response(st.session_state["math_responses"], domain, local_idx, current_sel)
-            st.session_state["math_item_index"] = idx + 1
-            if idx + 1 >= TOTAL_ITEMS:
+            next_idx = idx + 1
+            st.session_state["math_item_index"] = next_idx
+            try:
+                conn = get_connection()
+                save_progress_checkpoint(
+                    st.session_state.get("attempt_id", 0),
+                    st.session_state["math_responses"], {},
+                    next_idx, 0, conn=conn
+                )
+                conn.close()
+            except Exception:
+                pass
+            if next_idx >= TOTAL_ITEMS:
                 st.session_state["page"] = "science"
             st.rerun()
     if idx > 0:

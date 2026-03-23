@@ -1,5 +1,6 @@
+import json
 import streamlit as st
-from core.database import upsert_user, create_attempt, get_connection, count_attempts_by_name
+from core.database import upsert_user, create_attempt, get_connection, count_attempts_by_name, get_latest_incomplete_attempt
 from components.character import character_wave
 
 
@@ -119,11 +120,14 @@ def render():
     ) or ""
 
     st.markdown("<div style='height:0.5rem'></div>", unsafe_allow_html=True)
+
+    incomplete = None
     if name.strip():
         conn = get_connection()
         prev_count = count_attempts_by_name(name.strip(), conn=conn)
+        incomplete = get_latest_incomplete_attempt(name.strip(), conn=conn)
         conn.close()
-        if prev_count == 0:
+        if prev_count == 0 and not incomplete:
             atype = "baseline"
             atype_label = "🟢 Baseline (1st assessment)"
         elif prev_count == 1:
@@ -132,29 +136,70 @@ def render():
         else:
             atype = "endline"
             atype_label = f"🔵 Endline (assessment #{prev_count + 1})"
-        st.markdown(f'<div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:0.5rem 1rem;font-size:0.82rem;font-weight:700;color:#374151;margin-bottom:0.75rem;">📊 Assessment type: <span style="color:#4F46E5;">{atype_label}</span></div>', unsafe_allow_html=True)
+        if not incomplete:
+            st.markdown(f'<div style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:10px;padding:0.5rem 1rem;font-size:0.82rem;font-weight:700;color:#374151;margin-bottom:0.75rem;">📊 Assessment type: <span style="color:#4F46E5;">{atype_label}</span></div>', unsafe_allow_html=True)
     else:
         atype = "baseline"
 
-    if st.button(
-        "🚀  Let's Begin!" if name.strip() else "Enter your name above to start",
-        type="primary",
-        disabled=not name.strip(),
-        use_container_width=True,
-    ):
-        conn = get_connection()
-        upsert_user(
-            user.get("user_id") or "anonymous",
-            user.get("email") or "",
-            name.strip(),
-            "student",
-            conn=conn,
-        )
-        attempt_id = create_attempt(user.get("user_id") or "anonymous", name.strip(), assessment_type=atype, conn=conn)
-        conn.close()
-
-        st.session_state["student_name"] = name.strip()
-        st.session_state["attempt_id"] = attempt_id
-        st.session_state["assessment_type"] = atype
-        st.session_state["page"] = "math"
-        st.rerun()
+    if incomplete:
+        math_idx = incomplete.get("progress_math_idx", 0)
+        sci_idx = incomplete.get("progress_sci_idx", 0)
+        subject = "Science" if math_idx >= 20 else "Mathematics"
+        q_done = min(math_idx, 20) + min(sci_idx, 18)
+        st.markdown(f'<div style="background:#FFF7ED;border:2px solid #FED7AA;border-radius:12px;padding:0.75rem 1.1rem;margin-bottom:0.9rem;"><div style="font-size:0.88rem;font-weight:800;color:#92400E;">⚡ Unfinished assessment found</div><div style="font-size:0.82rem;color:#78350F;margin-top:0.2rem;">{q_done} / 38 questions completed &nbsp;·&nbsp; Next up: {subject}</div></div>', unsafe_allow_html=True)
+        col_resume, col_new = st.columns(2)
+        with col_resume:
+            if st.button("▶ Resume", type="primary", use_container_width=True):
+                math_raw = json.loads(incomplete.get("math_raw") or "{}")
+                conn = get_connection()
+                upsert_user(user.get("user_id") or "anonymous", user.get("email") or "", name.strip(), "student", conn=conn)
+                conn.close()
+                st.session_state["student_name"] = name.strip()
+                st.session_state["attempt_id"] = incomplete["id"]
+                st.session_state["assessment_type"] = incomplete.get("assessment_type", "baseline")
+                st.session_state["math_responses"] = math_raw if math_raw else None
+                st.session_state["math_item_index"] = math_idx
+                if math_idx >= 20:
+                    sci_raw = json.loads(incomplete.get("science_raw") or "{}")
+                    st.session_state["science_responses"] = sci_raw if sci_raw else None
+                    st.session_state["science_item_index"] = sci_idx
+                    st.session_state["page"] = "science"
+                else:
+                    st.session_state["page"] = "math"
+                st.rerun()
+        with col_new:
+            if st.button("🆕 New Assessment", use_container_width=True):
+                incomplete = None
+                conn = get_connection()
+                upsert_user(user.get("user_id") or "anonymous", user.get("email") or "", name.strip(), "student", conn=conn)
+                attempt_id = create_attempt(user.get("user_id") or "anonymous", name.strip(), assessment_type=atype, conn=conn)
+                conn.close()
+                st.session_state["student_name"] = name.strip()
+                st.session_state["attempt_id"] = attempt_id
+                st.session_state["assessment_type"] = atype
+                st.session_state["page"] = "math"
+                st.rerun()
+    else:
+        col_start, col_prog = st.columns([3, 1])
+        with col_start:
+            if st.button(
+                "🚀  Let's Begin!" if name.strip() else "Enter your name above to start",
+                type="primary",
+                disabled=not name.strip(),
+                use_container_width=True,
+            ):
+                conn = get_connection()
+                upsert_user(user.get("user_id") or "anonymous", user.get("email") or "", name.strip(), "student", conn=conn)
+                attempt_id = create_attempt(user.get("user_id") or "anonymous", name.strip(), assessment_type=atype, conn=conn)
+                conn.close()
+                st.session_state["student_name"] = name.strip()
+                st.session_state["attempt_id"] = attempt_id
+                st.session_state["assessment_type"] = atype
+                st.session_state["page"] = "math"
+                st.rerun()
+        if name.strip() and prev_count > 0:
+            with col_prog:
+                if st.button("📈 Progress", use_container_width=True):
+                    st.session_state["student_name"] = name.strip()
+                    st.session_state["page"] = "progress"
+                    st.rerun()

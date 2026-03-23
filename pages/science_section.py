@@ -6,7 +6,7 @@ from assessment.session import init_responses, record_response, get_domain_and_l
 from components.character import character_think
 from components.tts import tts_button
 from core.scoring import score_section, compute_overall_level
-from core.database import save_attempt_results, save_domain_scores, get_connection
+from core.database import save_attempt_results, save_domain_scores, save_progress_checkpoint, get_connection
 
 SUBJECT = "science"
 TOTAL_ITEMS = 18
@@ -18,6 +18,13 @@ DOMAIN_LABELS = {
     "systems": "Systems",
     "forces_energy": "Forces and Energy",
     "humans_environment": "Humans and the Environment",
+}
+DOMAIN_EMOJI = {
+    "diversity_matter": "🧪",
+    "cycles": "🔄",
+    "systems": "⚙️",
+    "forces_energy": "⚡",
+    "humans_environment": "🌍",
 }
 DOMAIN_ORDER = ["diversity_matter", "cycles", "systems", "forces_energy", "humans_environment"]
 DOMAIN_SIZES = {"diversity_matter": 3, "cycles": 4, "systems": 4, "forces_energy": 4, "humans_environment": 3}
@@ -201,7 +208,8 @@ def render():
     _stepper(ordered, idx)
 
     stem = item['stem']
-    st.markdown(f'<div class="q-card-sci"><div class="q-number-sci">Question {idx + 1} of {TOTAL_ITEMS}</div><div class="q-stem">{stem}</div></div>', unsafe_allow_html=True)
+    domain_emoji = DOMAIN_EMOJI.get(domain, "🔬")
+    st.markdown(f'<div class="q-card-sci"><div class="q-number-sci">Question {idx + 1} of {TOTAL_ITEMS} &nbsp; <span style="font-size:1.4rem;">{domain_emoji}</span></div><div class="q-stem">{stem}</div></div>', unsafe_allow_html=True)
     tts_button(stem, color="#059669", bg="#ECFDF5", border="#A7F3D0")
 
     col_ans, col_char = st.columns([3, 1])
@@ -228,8 +236,21 @@ def render():
             use_container_width=True,
         ):
             record_response(st.session_state["science_responses"], domain, local_idx, current_sel)
-            st.session_state["science_item_index"] = idx + 1
-            if idx + 1 >= TOTAL_ITEMS:
+            next_idx = idx + 1
+            st.session_state["science_item_index"] = next_idx
+            try:
+                conn = get_connection()
+                save_progress_checkpoint(
+                    st.session_state.get("attempt_id", 0),
+                    st.session_state.get("math_responses", {}),
+                    st.session_state["science_responses"],
+                    st.session_state.get("math_item_index", 20),
+                    next_idx, conn=conn
+                )
+                conn.close()
+            except Exception:
+                pass
+            if next_idx >= TOTAL_ITEMS:
                 _finalize()
             st.rerun()
     if idx > 0:
@@ -242,30 +263,7 @@ def render():
 
 
 def _show_transition():
-    st.markdown("""
-        <div class="transition-box">
-            <div class="transition-icon">🎉</div>
-            <div class="transition-title">Mathematics Complete!</div>
-            <div class="transition-body">
-                Amazing effort! You've finished all 20 Math questions.<br>
-                Now let's move on to the Science section.
-            </div>
-            <div class="transition-cards">
-                <div class="transition-card">
-                    <div class="tc-num">18</div>
-                    <div class="tc-label">Questions</div>
-                </div>
-                <div class="transition-card">
-                    <div class="tc-num">~15</div>
-                    <div class="tc-label">Minutes</div>
-                </div>
-                <div class="transition-card">
-                    <div class="tc-num">5</div>
-                    <div class="tc-label">Topics</div>
-                </div>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown('<div class="transition-box"><div class="transition-icon">🎉</div><div class="transition-title">Mathematics Complete!</div><div class="transition-body">Amazing effort! You\'ve finished all 20 Math questions.<br>Now let\'s move on to the Science section.</div><div class="transition-cards"><div class="transition-card"><div class="tc-num">18</div><div class="tc-label">Questions</div></div><div class="transition-card"><div class="tc-num">~15</div><div class="tc-label">Minutes</div></div><div class="transition-card"><div class="tc-num">5</div><div class="tc-label">Topics</div></div></div></div>', unsafe_allow_html=True)
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         if st.button("Continue to Science 🔬", type="primary", use_container_width=True):
@@ -298,9 +296,11 @@ def _finalize():
     save_domain_scores(attempt_id, {"math": math_scores, "science": science_scores}, conn=conn)
     conn.close()
 
+    from datetime import datetime
     st.session_state["math_scores"] = math_scores
     st.session_state["science_scores"] = science_scores
     st.session_state["overall_level"] = overall_level
     st.session_state["math_ordered"] = get_ordered_items("math")
     st.session_state["science_ordered"] = get_ordered_items("science")
+    st.session_state["completed_at"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     st.session_state["page"] = "results"

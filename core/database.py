@@ -22,6 +22,10 @@ def _migrate(conn: sqlite3.Connection) -> None:
         conn.execute("ALTER TABLE attempts ADD COLUMN group_label TEXT")
     if "synced" not in existing:
         conn.execute("ALTER TABLE attempts ADD COLUMN synced INTEGER DEFAULT 0")
+    if "progress_math_idx" not in existing:
+        conn.execute("ALTER TABLE attempts ADD COLUMN progress_math_idx INTEGER DEFAULT 0")
+    if "progress_sci_idx" not in existing:
+        conn.execute("ALTER TABLE attempts ADD COLUMN progress_sci_idx INTEGER DEFAULT 0")
     conn.commit()
 
 
@@ -50,7 +54,9 @@ def init_db(db_path: Path = None) -> None:
             overall_level INTEGER,
             assessment_type TEXT DEFAULT 'baseline',
             group_label TEXT,
-            synced INTEGER DEFAULT 0
+            synced INTEGER DEFAULT 0,
+            progress_math_idx INTEGER DEFAULT 0,
+            progress_sci_idx INTEGER DEFAULT 0
         );
 
         CREATE TABLE IF NOT EXISTS domain_scores (
@@ -151,6 +157,34 @@ def save_domain_scores(attempt_id: int, scores_by_subject: dict, conn=None) -> N
     conn.commit()
     if close:
         conn.close()
+
+
+def save_progress_checkpoint(attempt_id: int, math_raw: dict, science_raw: dict,
+                              math_idx: int, sci_idx: int, conn=None) -> None:
+    close = conn is None
+    if close:
+        conn = get_connection()
+    conn.execute(
+        "UPDATE attempts SET math_raw=?, science_raw=?, progress_math_idx=?, progress_sci_idx=? WHERE id=?",
+        (json.dumps(math_raw), json.dumps(science_raw), math_idx, sci_idx, attempt_id)
+    )
+    conn.commit()
+    if close:
+        conn.close()
+
+
+def get_latest_incomplete_attempt(student_name: str, conn=None):
+    close = conn is None
+    if close:
+        conn = get_connection()
+    row = conn.execute(
+        "SELECT * FROM attempts WHERE student_name=? AND completed_at IS NULL "
+        "AND progress_math_idx > 0 ORDER BY started_at DESC LIMIT 1",
+        (student_name,)
+    ).fetchone()
+    if close:
+        conn.close()
+    return dict(row) if row else None
 
 
 def update_group_label(attempt_id: int, group_label: str, conn=None) -> None:

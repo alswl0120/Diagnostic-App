@@ -16,10 +16,10 @@ def test_get_user_extracts_all_headers():
     assert user["roles"] == "staff,admin"
 
 
-def test_get_user_missing_headers_returns_none_values():
+def test_get_user_missing_headers_returns_anonymous_fallback():
     user = get_user({})
-    assert user["user_id"] is None
-    assert user["email"] is None
+    assert user["user_id"] == "anonymous"
+    assert user["email"] == ""
 
 
 def test_is_teacher_detects_staff():

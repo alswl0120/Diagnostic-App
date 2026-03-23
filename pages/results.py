@@ -281,8 +281,11 @@ def render():
         "math_scores": math_scores,
         "science_scores": science_scores,
         "overall_level": overall_level,
-        "completed_at": "",
+        "group_label": group,
+        "assessment_type": atype,
+        "completed_at": st.session_state.get("completed_at", ""),
     }
+    st.markdown('<div style="background:#ECFDF5;border:1.5px solid #A7F3D0;border-radius:10px;padding:0.45rem 1rem;font-size:0.82rem;font-weight:700;color:#065F46;margin-bottom:0.75rem;">✅ Results saved to device — available offline</div>', unsafe_allow_html=True)
     try:
         pdf_bytes = generate_report(result, math_recs, science_recs)
         st.download_button(

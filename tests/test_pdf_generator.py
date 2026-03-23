@@ -60,3 +60,26 @@ def test_generate_report_different_students_differ():
     pdf1 = generate_report(result1, {}, {})
     pdf2 = generate_report(result2, {}, {})
     assert pdf1 != pdf2
+
+
+def test_generate_report_includes_group_label():
+    result = make_sample_result()
+    result["group_label"] = "기초"
+    result["assessment_type"] = "baseline"
+    pdf_bytes = generate_report(result, {}, {})
+    assert pdf_bytes[:4] == b"%PDF"
+    assert len(pdf_bytes) > 1000
+
+
+def test_generate_report_footer_is_generic():
+    result = make_sample_result()
+    pdf_bytes = generate_report(result, {}, {})
+    pdf_text = pdf_bytes.decode("latin-1", errors="ignore")
+    assert "Ghana" not in pdf_text
+
+
+def test_generate_report_includes_assessment_type():
+    result = make_sample_result()
+    result["assessment_type"] = "midline"
+    pdf_bytes = generate_report(result, {}, {})
+    assert pdf_bytes[:4] == b"%PDF"

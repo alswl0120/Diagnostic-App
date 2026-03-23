@@ -140,7 +140,9 @@ def _offline_indicator():
     except Exception:
         n = 0
     if n > 0:
-        st.markdown(f'<div style="background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:8px;padding:0.35rem 0.9rem;font-size:0.75rem;font-weight:700;color:#92400E;margin-bottom:0.5rem;">📡 {n} item(s) pending sync · Will upload automatically when online</div>', unsafe_allow_html=True)
+        st.markdown(f'<div style="background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:8px;padding:0.4rem 1rem;font-size:0.8rem;font-weight:700;color:#92400E;margin-bottom:0.6rem;display:flex;justify-content:space-between;align-items:center;"><span>📡 Offline mode · {n} result(s) saved locally</span><span style="font-size:0.7rem;opacity:0.7;">Will sync when online</span></div>', unsafe_allow_html=True)
+    else:
+        st.markdown('<div style="background:#ECFDF5;border:1.5px solid #A7F3D0;border-radius:8px;padding:0.4rem 1rem;font-size:0.8rem;font-weight:700;color:#065F46;margin-bottom:0.6rem;">🟢 All data saved · Works offline</div>', unsafe_allow_html=True)
 
 
 def _init():
